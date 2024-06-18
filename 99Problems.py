@@ -65,25 +65,55 @@ def pack(l):
     packedList=[]
     finalList=[]
     for i in l:
-        if i==l[l.index(i)+1]:
+        packedList.append(i)
+        countIt=l.count(i)
+        for j in range(countIt-1):
             packedList.append(i)
-        else:
-            finalList.append(packedList)
-            packedList.clear()
-            packedList.append(i)
+            l.remove(i)
+        finalList.append(packedList)
+        packedList=[]
+        
     return finalList
+
 
 print(pack(compressIt))
     
 
 # 10. Run-length encoding of a list
-
-
+compressIt2=['a','a','a','b', 'c','c','c','d','e','e']
+def run_length(l):
+    placeList=[]
+    finalList=[]
+    for i in l:
+            num=l.count(i)
+            placeList.append(i)
+            placeList.append(num)
+            finalList.append(placeList)
+            for j in range(num-1):
+                l.remove(i)
+            placeList=[] 
+    return finalList
+print(run_length(compressIt2))
 # 11. Modified run-length encoding
-
+compressIt3=['a','a','a','b', 'c','c','c','d','e','e']
+def run_length_mod(l):
+    placeList=[]
+    finalList=[]
+    for i in l:
+            num=l.count(i)
+            if num>1:
+                placeList.append(i)
+                placeList.append(num)
+                finalList.append(placeList)
+            else:
+                finalList.append(i)
+            for j in range(num-1):
+                l.remove(i)
+            placeList=[] 
+    return finalList
+print(run_length_mod(compressIt3))
 
 # 12. Decode a run-length encoded list
-
 
 # 13. Run-length encoding of a list (direct solution)
 
@@ -181,6 +211,37 @@ print(all_ints(4, 9))
 
 
 # 23. Extract a given number of randomly selected elements from a list
+l4=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+import random
+def random_select(l, n):
+    newList=[]
+    for i in range(n):
+        ran=random.randrange(0, len(l)-1)
+        newList.append(l[ran])
+        del l[ran]
+    return newList
+
+print(random_select(l4, 3))
+
+# 24. Lotto: Draw N different random numbers from the set 1..M
+def lotto(n):
+    l=all_ints(1, 49)
+    ticket=random_select(l, n)
+    return ticket
+
+print(lotto(6))
+
+# 25. Generate a random permutation of the elements of a list
+def rnd_permu(l):
+    newList=[]
+    for i in l:
+        ran=random.randrange(0, len(l)-1)
+        move_to=l[ran]
+        newList.insert(move_to, i)
+    return newList
+
+print(rnd_permu(l4))
+
 
 
 #Let's do some arithmetic ones
@@ -235,5 +296,51 @@ print(totient(4))
 print(totient(7))
 
 # 35. Determine the prime factors of a given positive integer
+
+# 36. Determine the prime factors of a given positive integer and their multiplicity
+
+# 37. Improved Euler's totient function
+
+# 38. Compare the two methods of calculating Euler's totient function
+
+# 39. A list of prime numbers in a given range
+
+def prime_range(start, end):
+    prime_list=[]
+    for i in range(start, end):
+        if is_prime(i)=='This number is prime':
+            prime_list.append(i)
+        
+
+    return prime_list
+
+print(prime_range(1, 9))
+
+# 40. Goldbach's Conjecture
+def goldbach(num):
+    conjecture=[]
+    finalcon=[]
+    primes=prime_range(1, num)
+    for i in primes:
+        for j in primes:
+            if i+j==num:
+                conjecture.append(i)
+                conjecture.append(j)
+                already=list(reversed(conjecture))
+                if already not in finalcon:
+                    finalcon.append(conjecture)
+                conjecture=[]
+    return finalcon
+
+print(goldbach(28))
+
+# 41. A list of Goldbach Compositions
+def goldbach_list(start, end):
+    for i in range(start, end):
+        if i%2==0:
+            con=goldbach(i)
+
+
+    
 
 
