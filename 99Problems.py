@@ -55,7 +55,7 @@ for j in compressIt:
 compressIt=compressed
         
     
-print(compressed)
+print(compressIt)
 
 
 # 9. Pack consecutive duplicates of list elements into sublists
