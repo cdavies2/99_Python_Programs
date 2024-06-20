@@ -296,9 +296,48 @@ print(totient(4))
 print(totient(7))
 
 # 35. Determine the prime factors of a given positive integer
+def prime_f(num):
+    p_factors=[]
+    p_list=[]
+    for i in range(2, num+1):
+        if is_prime(i)=='This number is prime':
+            p_list.append(i)
+    if len(p_list)==1:
+        p_factors.append(p_list[0])
+    else:
+        while(num>1):
+            for i in p_list:
+                if num%i==0:
+                    p_factors.append(i)
+                    num=num/i
+    return p_factors
+
+print(prime_f(9))
+print(prime_f(17))
+print(prime_f(28))
+
 
 # 36. Determine the prime factors of a given positive integer and their multiplicity
+def prime_f_m(num):
+    mult_list=[]
+    final_list=[]
+    factor_list=prime_f(num)
+    for i in factor_list:
+            multi=factor_list.count(i)
+            mult_list.append(i)
+            mult_list.append(multi)
+            final_list.append(mult_list)
+            mult_list=[]
+    for i in final_list:
+        once=final_list.count(i)
+        if once>1:
+            for j in range(once-1):
+                final_list.remove(i)
+    final_list=list(reversed(final_list))
+    return final_list
 
+print(prime_f_m(9))
+print(prime_f_m(28))
 # 37. Improved Euler's totient function
 
 # 38. Compare the two methods of calculating Euler's totient function
@@ -307,20 +346,20 @@ print(totient(7))
 
 def prime_range(start, end):
     prime_list=[]
-    for i in range(start, end):
+    for i in range(start, end+1):
         if is_prime(i)=='This number is prime':
             prime_list.append(i)
         
 
     return prime_list
 
-print(prime_range(1, 9))
+print(prime_range(1, 17))
 
 # 40. Goldbach's Conjecture
 def goldbach(num):
     conjecture=[]
     finalcon=[]
-    primes=prime_range(1, num)
+    primes=prime_range(2, num)
     for i in primes:
         for j in primes:
             if i+j==num:
@@ -336,9 +375,15 @@ print(goldbach(28))
 
 # 41. A list of Goldbach Compositions
 def goldbach_list(start, end):
+    con=[]
     for i in range(start, end):
         if i%2==0:
-            con=goldbach(i)
+            con.append(goldbach(i))
+        
+    for i in con:
+       print(i[0][0]+i[0][1], "= ", i[0][0], "+", i[0][1])
+    
+goldbach_list(9, 20)
 
 
     
