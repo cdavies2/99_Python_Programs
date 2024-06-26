@@ -111,9 +111,13 @@ def run_length_mod(l):
                 l.remove(i)
             placeList=[] 
     return finalList
-print(run_length_mod(compressIt3))
+
+r_list=run_length_mod(compressIt3)
+print(r_list)
+
 
 # 12. Decode a run-length encoded list
+
 
 # 13. Run-length encoding of a list (direct solution)
 
@@ -242,8 +246,70 @@ def rnd_permu(l):
 
 print(rnd_permu(l4))
 
+# 28. Sorting a list of lists according to length of sublists
 
+# a. Shorter lists first, longer lists later
+list_of_lists=[[2, 2, 2], [2, 0, 1, 2], [9], [6, 5], [1, 2, 3]]
+def lsort(l):
+    sorted_list=[]
+    max=0
+    min=len(l[0])
+    for i in l:
+        if len(i)<=min:
+            sorted_list.insert(0, i)
+            min=len(i)
+        elif len(i)>max:
+                sorted_list.append(i)
+                max=len(i)
+        else:
+            for j in range (1, len(sorted_list)+1):
+                if len(i)>len(sorted_list[j-1]) and len(i)<len(sorted_list[j]):
+                    sorted_list.insert(j, i)
+                    break
+                elif len(i)==len(sorted_list[j]):
+                    sorted_list.insert(j+1, i)
+                    break
+    return sorted_list
 
+print("The sorted list is", lsort(list_of_lists))
+
+# b. Sort according to length frequency (rare lengths first, more frequent lengths after)
+list_of_lists2=[[11, 14], [1, 1, 2, 4], [2], [6, 19], [2, 0, 0, 3], [9, 24]]
+def lfsort(l):
+    length_list=[]
+    sorted_length=[]
+    final_list=[]
+    for i in l:
+        length=len(i)
+        length_list.append(length)
+    min=length_list.count(length_list[0])
+    max=0
+    for j in length_list:
+        if length_list.count(j)<min:
+            sorted_length.insert(0, j)
+            min=length_list.count(j)
+        elif length_list.count(j)>max:
+                sorted_length.append(j)
+                max=length_list.count(j)
+        else:
+            for k in range (1, len(sorted_length)+1):
+                if length_list.count(j)>length_list.count(length_list[k-1]) and length_list.count(j)<length_list.count(length_list[k]):
+                    sorted_length.insert(k, j)
+                    break
+                elif length_list.count(j)==length_list.count(length_list[k]):
+                    sorted_length.insert(k+1, j)
+                    break
+    
+    for x in l:
+        for y in sorted_length:
+            if len(x)==y:
+                sorted_length.insert(sorted_length.index(y), x)
+                break
+    for z in sorted_length:
+        if type(z)==list:
+            final_list.append(z)
+    return final_list
+print(lfsort(list_of_lists2)) 
 #Let's do some arithmetic ones
 
 # 31. Determine whether a given integer number is prime
@@ -339,6 +405,7 @@ def prime_f_m(num):
 print(prime_f_m(9))
 print(prime_f_m(28))
 # 37. Improved Euler's totient function
+
 
 # 38. Compare the two methods of calculating Euler's totient function
 
