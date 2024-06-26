@@ -117,6 +117,18 @@ print(r_list)
 
 
 # 12. Decode a run-length encoded list
+def decode(l):
+    decoded_list=[]
+    for i in l:
+        if type(i)==list:
+                num=i[1]
+                for k in range(num):
+                    decoded_list.append(i[0])
+        else:
+            decoded_list.append(i)
+    return decoded_list
+
+print(decode(r_list))
 
 
 # 13. Run-length encoding of a list (direct solution)
